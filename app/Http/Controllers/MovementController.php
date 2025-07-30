@@ -6,16 +6,48 @@ use Illuminate\Http\Request;
 use App\Models\Movement;
 use App\Http\Requests\Movements\CreateMovementRequest;
 use App\Http\Requests\Movements\UpdateMovementRequest;
+use Carbon\Carbon;
 
 class MovementController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $movements = Movement::all();
+        $query = Movement::with('category');
+
+        // Filtro por fecha desde
+        if ($request->filled('date_from')) {
+            $dateFrom = Carbon::parse($request->date_from)->startOfDay();
+            $query->where('date', '>=', $dateFrom);
+        }
+
+        // Filtro por fecha hasta
+        if ($request->filled('date_to')) {
+            $dateTo = Carbon::parse($request->date_to)->endOfDay();
+            $query->where('date', '<=', $dateTo);
+        }
+
+        // Filtro por tipo (income/expense)
+        if ($request->filled('type')) {
+            $query->where('type', $request->type);
+        }
+
+        // Filtro por categoría
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        // Ordenamiento
+        $sortBy = $request->get('sort_by', 'date');
+        $sortOrder = $request->get('sort_order', 'desc');
+        $query->orderBy($sortBy, $sortOrder);
+
+        // Paginación
+        $perPage = $request->get('per_page', 15);
+        $movements = $query->paginate($perPage);
+
         return response()->json($movements);
     }
 
@@ -68,5 +100,46 @@ class MovementController extends Controller
         }
         $movement->delete();
         return response()->json(null, 204);
+    }
+
+    /**
+     * Get movement statistics
+     */
+    public function statistics(Request $request)
+    {
+        $query = Movement::query();
+
+        // Filtro por fecha desde
+        if ($request->filled('date_from')) {
+            $dateFrom = Carbon::parse($request->date_from)->startOfDay();
+            $query->where('date', '>=', $dateFrom);
+        }
+
+        // Filtro por fecha hasta
+        if ($request->filled('date_to')) {
+            $dateTo = Carbon::parse($request->date_to)->endOfDay();
+            $query->where('date', '<=', $dateTo);
+        }
+
+        // Filtro por categoría
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        $totalIncome = (clone $query)->where('type', 'income')->sum('amount');
+        $totalExpense = (clone $query)->where('type', 'expense')->sum('amount');
+        $balance = $totalIncome - $totalExpense;
+        $totalMovements = $query->count();
+
+        return response()->json([
+            'total_income' => $totalIncome,
+            'total_expense' => $totalExpense,
+            'balance' => $balance,
+            'total_movements' => $totalMovements,
+            'date_range' => [
+                'from' => $request->get('date_from'),
+                'to' => $request->get('date_to')
+            ]
+        ]);
     }
 }

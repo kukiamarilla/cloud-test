@@ -11,3 +11,6 @@ Route::get('/user', function (Request $request) {
 
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('movements', MovementController::class);
+
+// Ruta adicional para estadísticas de movimientos
+Route::get('/movements/statistics', [MovementController::class, 'statistics']);
