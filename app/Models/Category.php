@@ -8,4 +8,9 @@ class Category extends Model
 {
     protected $fillable = ['name'];
 
+
+    public function movements()
+    {
+        return $this->hasMany(Movement::class);
+    }
 }
