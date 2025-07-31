@@ -3,7 +3,7 @@ import { MovementsContainer } from './components/containers/movements-container'
 import { ExpenseChartContainer } from './components/containers/expense-chart-container';
 import { BalancePerMonthContainer } from './components/containers/balance-per-month-container';
 // @ts-ignore
-import logo from '../img/escama-logo-2.svg';
+import logo from '../img/escama-logo.svg';
 
 const App = () => {
     return (
