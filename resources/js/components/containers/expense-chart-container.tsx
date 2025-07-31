@@ -60,7 +60,7 @@ export const ExpenseChartContainer = () => {
     }, [dateFrom]);
 
     return (
-        <div>
+        <div className='h-full'>
             <ExpenseChart expenses={expenses} onPeriodChange={handlePeriodChange} />
         </div>
     )

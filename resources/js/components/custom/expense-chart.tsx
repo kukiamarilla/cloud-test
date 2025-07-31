@@ -31,8 +31,8 @@ export const ExpenseChart = ({ expenses, onPeriodChange }: ExpenseChartProps) =>
         },
     }
     return (
-        <div>
-            <Card className='mb-5'>
+        <div className='h-full'>
+            <Card className='h-full'>
                 <CardHeader>
                     <CardTitle>Comportamiento de Gastos</CardTitle>
                 </CardHeader>
