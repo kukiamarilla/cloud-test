@@ -10,4 +10,17 @@ export default defineConfig({
         }),
         react(),
     ],
+    build: {
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    vendor: ['react', 'react-dom'],
+                },
+            },
+        },
+        chunkSizeWarningLimit: 1000,
+    },
+    optimizeDeps: {
+        include: ['react', 'react-dom'],
+    },
 });
