@@ -46,7 +46,7 @@ class MovementController extends Controller
 
         // Paginación
         $perPage = $request->get('per_page', 15);
-        $movements = $query->paginate($perPage);
+        $movements = $query->with('category')->paginate($perPage);
 
         return response()->json($movements);
     }
