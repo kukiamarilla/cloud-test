@@ -4,6 +4,7 @@ import { BarChart, Bar, XAxis } from "recharts"
 import { useEffect, useState } from "react"
 import { Movement } from "@/model/movement";
 import { listMovements } from "@/service/movements";
+import { DatePicker } from "../ui/date-picker";
 
 interface DateExpense {
     date: string;
@@ -14,7 +15,7 @@ interface ExpenseChartProps {
     expenses: DateExpense[];
 }
 
-export const ExpenseChart = ({ expenses }: ExpenseChartProps) => {
+export const ExpenseChart = ({ expenses}: ExpenseChartProps) => {
     const chartConfig = {
         amount: {
             label: "Monto",

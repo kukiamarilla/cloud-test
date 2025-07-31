@@ -3,8 +3,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 import { Movement } from "../../model/movement";
 import { formatDate } from "../../lib/utils";
 import { CustomPagination } from "../ui/custom-pagination";
+import { DatePicker } from "../ui/date-picker";
 
 interface MovementsProps {
+    dateFrom: Date | undefined;
+    dateTo: Date | undefined;
     movements: Movement[];
     page: number;
     per_page: number;
@@ -12,16 +15,22 @@ interface MovementsProps {
     loading?: boolean;
     onPageChange?: (page: number) => void;
     onPerPageChange?: (perPage: number) => void;
+    onDateFromChange: (date: Date) => void;
+    onDateToChange: (date: Date) => void;
 }
 
 export const Movements = ({ 
+    dateFrom,
+    dateTo,
     movements, 
     page, 
     per_page, 
     total, 
     loading = false,
     onPageChange,
-    onPerPageChange 
+    onPerPageChange,
+    onDateFromChange,
+    onDateToChange
 }: MovementsProps) => {
     const totalPages = Math.ceil(total / per_page);
 
@@ -31,6 +40,10 @@ export const Movements = ({
                 <CardTitle>Movimientos</CardTitle>
             </CardHeader>
             <CardContent>
+                <div className="flex flex-row gap-2">
+                    <DatePicker date={dateFrom} onChange={onDateFromChange} label="Fecha desde" />
+                    <DatePicker date={dateTo} onChange={onDateToChange} label="Fecha hasta" />
+                </div>
                 {loading ? (
                     <div className="text-center py-4">Cargando...</div>
                 ) : (

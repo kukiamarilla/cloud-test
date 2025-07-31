@@ -9,6 +9,16 @@ export const MovementsContainer = () => {
     const [perPage, setPerPage] = useState(10);
     const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(false);
+    const [dateFrom, setDateFrom] = useState<string|null>(null);
+    const [dateTo, setDateTo] = useState<string|null>(null);
+
+    const handleDateFromChange = (date: Date) => {
+        setDateFrom(date.toISOString());
+    }
+
+    const handleDateToChange = (date: Date) => {
+        setDateTo(date.toISOString());
+    }
 
     const loadMovements = async () => {
         setLoading(true);
@@ -16,6 +26,8 @@ export const MovementsContainer = () => {
             const data = await listMovements({
                 page: page,
                 per_page: perPage,
+                ...(dateFrom && { date_from: dateFrom }),
+                ...(dateTo && { date_to: dateTo }),
             });
             
             // Laravel pagination structure
@@ -32,7 +44,7 @@ export const MovementsContainer = () => {
 
     useEffect(() => {
         loadMovements();
-    }, [page, perPage]);
+    }, [page, perPage, dateFrom, dateTo]);
 
     const handlePageChange = (newPage: number) => {
         setPage(newPage);
@@ -46,6 +58,8 @@ export const MovementsContainer = () => {
     return (
         <div>
             <Movements 
+                dateFrom={dateFrom ? new Date(dateFrom) : undefined}
+                dateTo={dateTo ? new Date(dateTo) : undefined}
                 movements={movements} 
                 page={page} 
                 per_page={perPage} 
@@ -53,6 +67,8 @@ export const MovementsContainer = () => {
                 loading={loading}
                 onPageChange={handlePageChange}
                 onPerPageChange={handlePerPageChange}
+                onDateFromChange={handleDateFromChange}
+                onDateToChange={handleDateToChange}
             />
         </div>
     );

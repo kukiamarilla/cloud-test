@@ -2,6 +2,7 @@ import { Movement } from "@/model/movement";
 import { ExpenseChart } from "../custom/expense-chart"
 import { useEffect, useState } from "react";
 import { listMovements } from "@/service/movements";
+import { DatePicker } from "../ui/date-picker";
 
 interface DateExpense {
     date: string;
@@ -11,13 +12,12 @@ interface DateExpense {
 export const ExpenseChartContainer = () => {
     const [expenses, setExpenses] = useState<DateExpense[]>([]);
     const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         setLoading(true);
         listMovements({
             page: 1,
             per_page: 1000,
-            date_from: '2025-07-01',
-            date_to: '2025-07-31',
             type: 'expense',
         }).then((data) => {
             const today = new Date();
