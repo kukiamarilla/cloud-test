@@ -26,9 +26,7 @@ class CategoryController extends Controller
         $sortOrder = $request->get('sort_order', 'asc');
         $query->orderBy($sortBy, $sortOrder);
 
-        // Paginación
-        $perPage = $request->get('per_page', 15);
-        $categories = $query->paginate($perPage);
+        $categories = $query->get();
 
         return response()->json($categories);
     }

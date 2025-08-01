@@ -8,7 +8,6 @@ export const BalancePerMonthContainer = () => {
     const [movements, setMovements] = useState<Movement[]>([]);
     const [year, setYear] = useState<number>(new Date().getFullYear());
     useEffect(() => {
-        console.log("year", year);
         listMovements({
             page: 1,
             per_page: 1000,
@@ -19,7 +18,6 @@ export const BalancePerMonthContainer = () => {
         });
     }, [year]);
     useEffect(() => {
-        console.log("movements", movements);
     }, [movements]);
     return (
         <BalancePerMonth movements={movements} year={year} onYearChange={setYear} />

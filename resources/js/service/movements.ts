@@ -23,3 +23,14 @@ export const getMovementStatistics = async (options: {
     return response.data;
 };
 
+export const createMovement = async (options: {
+    description: string,
+    amount: number,
+    type: 'income' | 'expense',
+    date: string,
+    category_id: number,
+}) => {
+    const response = await axios.post('/api/movements', options);
+    return response.data;
+};
+

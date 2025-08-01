@@ -12,7 +12,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-export function DatePicker({ date, onChange, label }: { date: Date | undefined, onChange: (date: Date) => void, label: string }) {
+export function DatePicker({ date, onChange, label, className }: { date: Date | undefined, onChange: (date: Date) => void, label: string, className?: string }) {
   const [open, setOpen] = React.useState(false)
 
   return (
@@ -25,7 +25,7 @@ export function DatePicker({ date, onChange, label }: { date: Date | undefined, 
           <Button
             variant="outline"
             id="date"
-            className="w-48 justify-between font-normal"
+            className={`w-48 justify-between font-normal ${className}`}
           >
             {date ? date.toLocaleDateString() : "Select date"}
             <ChevronDownIcon />
