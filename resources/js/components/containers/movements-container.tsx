@@ -6,7 +6,7 @@ import { listMovements } from "../../service/movements";
 export const MovementsContainer = () => {
     const [movements, setMovements] = useState<Movement[]>([]);
     const [page, setPage] = useState(1);
-    const [perPage, setPerPage] = useState(10);
+    const [perPage, setPerPage] = useState(20);
     const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(false);
     const [dateFrom, setDateFrom] = useState<string|null>(null);
