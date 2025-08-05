@@ -5,6 +5,7 @@ import { ChartTooltipContent } from "../ui/chart"
 import { Movement } from "../../model/movement"
 import { useEffect, useState } from "react"
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "../ui/pagination"
+import { setTimezone } from "@/lib/utils"
 
 export const BalancePerMonth = ({movements, onYearChange, year}: {movements: Movement[], year: number, onYearChange: (year: number) => void}) => {
     const chartConfig = {
@@ -16,7 +17,8 @@ export const BalancePerMonth = ({movements, onYearChange, year}: {movements: Mov
     useEffect(() => {
         const chartData = Array(12).fill(0);
         movements.forEach((movement) => {
-            const month = new Date(movement.date).getMonth();
+            //get local timezone
+            const month = new Date(setTimezone(movement.date, -3)).getMonth();
             const rawAmount = movement.amount;
             const type = movement.type;
             const amount = type === "income" ? rawAmount : -rawAmount;
