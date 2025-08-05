@@ -31,7 +31,14 @@ export const MovementsContainer = () => {
             });
             
             // Laravel pagination structure
-            setMovements(data.data);
+            const sortedMovements = data.data
+                .sort((a: Movement, b: Movement) => {
+                    return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+                })
+                .sort((a: Movement, b: Movement) => {
+                    return a.date < b.date ? 1 : -1;
+                });
+            setMovements(sortedMovements);
             setTotal(data.total);
             setPage(data.current_page);
             setPerPage(data.per_page);
