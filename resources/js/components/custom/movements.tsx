@@ -67,7 +67,7 @@ export const Movements = ({
                                     <TableRow className={movement.type} key={movement.id}>
                                         <TableCell>{formatDate(movement.date)}</TableCell>
                                         <TableCell>{movement.description}</TableCell>
-                                        <TableCell>{movement.type === 'income' ? '+' : '-'}{movement.amount}Gs.</TableCell>
+                                        <TableCell>{movement.type === 'income' ? '+' : '-'}{movement.amount.toLocaleString()}Gs.</TableCell>
                                         <TableCell>{movement.category.name}</TableCell>
                                         <TableCell>
                                             <Button variant="ghost" size="icon" onClick={() => onDeleteMovement(movement.id)}>
