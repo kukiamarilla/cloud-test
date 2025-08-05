@@ -32,7 +32,7 @@ export const AddMovement = () => {
             description,
             amount,
             type: movementType,
-            date: new Date().toISOString(),
+            date: date.toISOString().substring(0,10),
             category_id: category,
         });
     }
