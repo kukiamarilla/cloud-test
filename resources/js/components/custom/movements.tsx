@@ -4,6 +4,8 @@ import { Movement } from "../../model/movement";
 import { formatDate } from "../../lib/utils";
 import { CustomPagination } from "../ui/custom-pagination";
 import { DatePicker } from "../ui/date-picker";
+import { Button } from "../ui/button";
+import { Trash2 } from "lucide-react";
 
 interface MovementsProps {
     dateFrom: Date | undefined;
@@ -17,6 +19,7 @@ interface MovementsProps {
     onPerPageChange?: (perPage: number) => void;
     onDateFromChange: (date: Date) => void;
     onDateToChange: (date: Date) => void;
+    onDeleteMovement: (id: number) => void;
 }
 
 export const Movements = ({ 
@@ -30,7 +33,8 @@ export const Movements = ({
     onPageChange,
     onPerPageChange,
     onDateFromChange,
-    onDateToChange
+    onDateToChange,
+    onDeleteMovement
 }: MovementsProps) => {
     const totalPages = Math.ceil(total / per_page);
 
@@ -55,6 +59,7 @@ export const Movements = ({
                                     <TableHead>Descripción</TableHead>
                                     <TableHead>Monto</TableHead>
                                     <TableHead>Categoría</TableHead>
+                                    <TableHead>Acciones</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -64,6 +69,11 @@ export const Movements = ({
                                         <TableCell>{movement.description}</TableCell>
                                         <TableCell>{movement.type === 'income' ? '+' : '-'}{movement.amount}Gs.</TableCell>
                                         <TableCell>{movement.category.name}</TableCell>
+                                        <TableCell>
+                                            <Button variant="ghost" size="icon" onClick={() => onDeleteMovement(movement.id)}>
+                                                <Trash2 className="w-4 h-4" />
+                                            </Button>
+                                        </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

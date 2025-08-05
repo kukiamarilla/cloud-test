@@ -34,3 +34,7 @@ export const createMovement = async (options: {
     return response.data;
 };
 
+export const deleteMovement = async (id: number) => {
+    const response = await axios.delete(`/api/movements/${id}`);
+    return response.data;
+};

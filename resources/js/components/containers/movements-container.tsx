@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Movement } from "../../model/movement";
 import { Movements } from "../custom/movements";
-import { listMovements } from "../../service/movements";
+import { deleteMovement, listMovements } from "../../service/movements";
 
 export const MovementsContainer = () => {
     const [movements, setMovements] = useState<Movement[]>([]);
@@ -55,6 +55,14 @@ export const MovementsContainer = () => {
         setPage(1); // Reset to first page when changing per_page
     };
 
+    const handleDeleteMovement = (id: number) => {
+        if(confirm('¿Estás seguro de querer eliminar este movimiento?')){
+            deleteMovement(id).then(() => {
+                loadMovements();
+            });
+        }
+    }
+
     return (
         <div>
             <Movements 
@@ -69,6 +77,7 @@ export const MovementsContainer = () => {
                 onPerPageChange={handlePerPageChange}
                 onDateFromChange={handleDateFromChange}
                 onDateToChange={handleDateToChange}
+                onDeleteMovement={handleDeleteMovement}
             />
         </div>
     );
