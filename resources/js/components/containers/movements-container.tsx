@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Movement } from "../../model/movement";
 import { Movements } from "../custom/movements";
 import { deleteMovement, listMovements } from "../../service/movements";
+import { useRefresh } from "../../contexts/refresh-context";
 
 export const MovementsContainer = () => {
     const [movements, setMovements] = useState<Movement[]>([]);
@@ -11,6 +12,7 @@ export const MovementsContainer = () => {
     const [loading, setLoading] = useState(false);
     const [dateFrom, setDateFrom] = useState<string|null>(null);
     const [dateTo, setDateTo] = useState<string|null>(null);
+    const { lastRefresh } = useRefresh();
 
     const handleDateFromChange = (date: Date) => {
         setDateFrom(date.toISOString());
@@ -51,7 +53,7 @@ export const MovementsContainer = () => {
 
     useEffect(() => {
         loadMovements();
-    }, [page, perPage, dateFrom, dateTo]);
+    }, [page, perPage, dateFrom, dateTo, lastRefresh]);
 
     const handlePageChange = (newPage: number) => {
         setPage(newPage);

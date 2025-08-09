@@ -1,7 +1,8 @@
 import React, { ReactNode, useCallback, useRef, useState } from 'react';
+import { useRefresh } from '../../contexts/refresh-context';
 
 interface PullToRefreshProps {
-  onRefresh: () => Promise<void> | void;
+  onRefresh?: () => Promise<void> | void;
   children: ReactNode;
   thresholdPx?: number;
 }
@@ -15,6 +16,7 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
   const [pullDistance, setPullDistance] = useState(0);
   const [isPulling, setIsPulling] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const { triggerRefresh } = useRefresh();
 
   const isAtTop = (): boolean => {
     const scrollElement = document.scrollingElement || document.documentElement;
@@ -56,12 +58,14 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
     if (pullDistance >= thresholdPx) {
       setIsRefreshing(true);
       try {
+        // Fire global refresh event
+        triggerRefresh();
+        // Also allow local handler
         const result = onRefresh?.();
         if (result && typeof (result as Promise<void>).then === 'function') {
           await result;
         } else {
-          // If no promise returned, give a brief animation time
-          await new Promise((r) => setTimeout(r, 600));
+          await new Promise((r) => setTimeout(r, 500));
         }
       } finally {
         reset();

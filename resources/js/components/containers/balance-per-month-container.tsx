@@ -3,10 +3,12 @@ import { Movement } from "../../model/movement"
 import { useEffect } from "react"
 import { useState } from "react"
 import { listMovements } from "../../service/movements"
+import { useRefresh } from "../../contexts/refresh-context"
 
 export const BalancePerMonthContainer = () => {
     const [movements, setMovements] = useState<Movement[]>([]);
     const [year, setYear] = useState<number>(new Date().getFullYear());
+    const { lastRefresh } = useRefresh();
     useEffect(() => {
         listMovements({
             page: 1,
@@ -16,7 +18,7 @@ export const BalancePerMonthContainer = () => {
         }).then((data) => {
             setMovements(data.data);
         });
-    }, [year]);
+    }, [year, lastRefresh]);
     useEffect(() => {
     }, [movements]);
     return (

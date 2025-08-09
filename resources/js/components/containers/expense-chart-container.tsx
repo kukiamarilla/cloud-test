@@ -5,6 +5,7 @@ import { listMovements } from "@/service/movements";
 import { DatePicker } from "../ui/date-picker";
 import { Grouper } from "@/model/grouper";
 import { listGrouper, listMovementsByGrouper } from "@/service/grouper";
+import { useRefresh } from "@/contexts/refresh-context";
 
 interface DateExpense {
     date: string;
@@ -20,6 +21,7 @@ export const ExpenseChartContainer = () => {
     const [expenses, setExpenses] = useState<DateExpense[]>([]);
     const [dateFrom, setDateFrom] = useState<Date>(monthAgo);
     const [currentGrouperId, setCurrentGrouperId] = useState<number>(0);
+    const { lastRefresh } = useRefresh();
 
     const handleGrouperChange = (grouperId: number) => {
         setCurrentGrouperId(grouperId);
@@ -54,7 +56,7 @@ export const ExpenseChartContainer = () => {
                 setMovements(data);
             });
         }
-    }, [currentGrouperId, dateFrom]);
+    }, [currentGrouperId, dateFrom, lastRefresh]);
 
     useEffect(() => {
         const dateExpenses: Map<string, number> = new Map();
@@ -82,7 +84,7 @@ export const ExpenseChartContainer = () => {
         listGrouper().then((data) => {
             setGroupers(data);
         });
-    }, []);
+    }, [lastRefresh]);
     return (
         <div className='h-full'>
             <ExpenseChart expenses={expenses} onPeriodChange={handlePeriodChange} groupers={groupers} onGrouperChange={handleGrouperChange} currentGrouperId={currentGrouperId} />
