@@ -3,6 +3,7 @@
     <head>
         <title>Escama - Gestión de finanzas personales</title>
         @vite(['resources/css/app.css', 'resources/js/main.tsx'])
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
         <link rel="manifest" href="{{ asset('manifest.webmanifest') }}">
         <meta name="theme-color" content="#ffffff">
         <meta name="apple-mobile-web-app-title" content="Escama">

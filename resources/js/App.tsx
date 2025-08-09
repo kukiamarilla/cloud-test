@@ -12,23 +12,25 @@ const App = () => {
     return (
         <div>
             <Header />
-            <div className='container mx-auto mt-10'>
-                <div className='flex flex-row gap-4 justify-between items-stretch'>
+            <div className='container mx-auto mt-10 px-4'>
+                <div className='flex flex-col sm:flex-row gap-4 justify-between items-stretch'>
                     <AddMovement />
-                    <div className='flex flex-row gap-4 items-stretch'>
+                    <div className='flex flex-col sm:flex-row gap-4 items-stretch'>
                         <AddGrouper />  
                         <AddCategory />
                     </div>
                 </div>
-                <div className='flex flex-row gap-4 items-stretch mb-5'>
-                    <div className='flex-1 w-1/2'>
+                <div className='flex flex-col md:flex-row gap-4 items-stretch mb-5'>
+                    <div className='w-full md:w-1/2'>
                         <ExpenseChartContainer />
                     </div>
-                    <div className='flex-1 w-1/2'>
+                    <div className='w-full md:w-1/2'>
                         <BalancePerMonthContainer />
                     </div>
                 </div>
-                <MovementsContainer />
+                <div className='overflow-x-auto'>
+                    <MovementsContainer />
+                </div>
             </div>
         </div>
     );

@@ -44,7 +44,7 @@ export const Movements = ({
                 <CardTitle>Movimientos</CardTitle>
             </CardHeader>
             <CardContent>
-                <div className="flex flex-row gap-2">
+                <div className="flex flex-col sm:flex-row gap-2">
                     <DatePicker date={dateFrom} onChange={onDateFromChange} label="Fecha desde" />
                     <DatePicker date={dateTo} onChange={onDateToChange} label="Fecha hasta" />
                 </div>
@@ -52,33 +52,34 @@ export const Movements = ({
                     <div className="text-center py-4">Cargando...</div>
                 ) : (
                     <>
-                        <Table className="font-bold">
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>Fecha</TableHead>
-                                    <TableHead>Descripción</TableHead>
-                                    <TableHead>Monto</TableHead>
-                                    <TableHead>Categoría</TableHead>
-                                    <TableHead>Acciones</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {movements.map((movement: Movement) => (
-                                    <TableRow className={movement.type} key={movement.id}>
-                                        <TableCell>{formatDate(movement.date)}</TableCell>
-                                        <TableCell>{movement.description}</TableCell>
-                                        <TableCell>{movement.type === 'income' ? '+' : '-'}{movement.amount.toLocaleString()}Gs.</TableCell>
-                                        <TableCell>{movement.category.name}</TableCell>
-                                        <TableCell>
-                                            <Button variant="ghost" size="icon" onClick={() => onDeleteMovement(movement.id)}>
-                                                <Trash2 className="w-4 h-4" />
-                                            </Button>
-                                        </TableCell>
+                        <div className="overflow-x-auto">
+                            <Table className="min-w-[640px] sm:min-w-0 font-bold">
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>Fecha</TableHead>
+                                        <TableHead>Descripción</TableHead>
+                                        <TableHead>Monto</TableHead>
+                                        <TableHead>Categoría</TableHead>
+                                        <TableHead>Acciones</TableHead>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                        
+                                </TableHeader>
+                                <TableBody>
+                                    {movements.map((movement: Movement) => (
+                                        <TableRow className={movement.type} key={movement.id}>
+                                            <TableCell>{formatDate(movement.date)}</TableCell>
+                                            <TableCell>{movement.description}</TableCell>
+                                            <TableCell>{movement.type === 'income' ? '+' : '-'}{movement.amount.toLocaleString()}Gs.</TableCell>
+                                            <TableCell>{movement.category.name}</TableCell>
+                                            <TableCell>
+                                                <Button variant="ghost" size="icon" onClick={() => onDeleteMovement(movement.id)}>
+                                                    <Trash2 className="w-4 h-4" />
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </div>
                         {onPageChange && (
                             <CustomPagination
                                 currentPage={page}
