@@ -5,6 +5,7 @@ import { BalancePerMonthContainer } from './components/containers/balance-per-mo
 import { Header } from './components/custom/header';
 import { AddMovement } from './components/custom/add-movement';
 import { AddCategory } from './components/custom/add-category';
+import { AddGrouper } from './components/custom/add-grouper';
 
 const App = () => {
 
@@ -14,7 +15,10 @@ const App = () => {
             <div className='container mx-auto mt-10'>
                 <div className='flex flex-row gap-4 justify-between items-stretch'>
                     <AddMovement />
-                    <AddCategory />
+                    <div className='flex flex-row gap-4 items-stretch'>
+                        <AddGrouper />  
+                        <AddCategory />
+                    </div>
                 </div>
                 <div className='flex flex-row gap-4 items-stretch mb-5'>
                     <div className='flex-1 w-1/2'>

@@ -7,6 +7,8 @@ import { listMovements } from "@/service/movements";
 import { DatePicker } from "../ui/date-picker";
 import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
 import { Bold, Italic, Underline } from "lucide-react";
+import { ComboboxSelect } from "../ui/combobox-select";
+import { Grouper } from "@/model/grouper";
 
 interface DateExpense {
     date: string;
@@ -16,10 +18,14 @@ interface DateExpense {
 interface ExpenseChartProps {
     expenses: DateExpense[];
     onPeriodChange: (period: string) => void;
+    groupers: Grouper[];
+    onGrouperChange: (grouperId: number) => void;
+    currentGrouperId: number | null;
 }
 
-export const ExpenseChart = ({ expenses, onPeriodChange }: ExpenseChartProps) => {
+export const ExpenseChart = ({ expenses, onPeriodChange, groupers, onGrouperChange, currentGrouperId }: ExpenseChartProps) => {
     const [period, setPeriod] = useState("1M");
+
     const handlePeriodChange = (value: string) => {
         setPeriod(value);
         onPeriodChange(value);
@@ -37,23 +43,35 @@ export const ExpenseChart = ({ expenses, onPeriodChange }: ExpenseChartProps) =>
                     <CardTitle>Comportamiento de Gastos</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <ToggleGroup type="single" variant="outline" value={period} onValueChange={handlePeriodChange}>
-                        <ToggleGroupItem value="1W">
-                            1W
-                        </ToggleGroupItem>
-                        <ToggleGroupItem value="1M">
-                            1M
-                        </ToggleGroupItem>
-                        <ToggleGroupItem value="3M">
-                            3M
-                        </ToggleGroupItem>
-                        <ToggleGroupItem value="6M">
-                            6M
-                        </ToggleGroupItem>
-                        <ToggleGroupItem value="1Y">
-                            1Y
-                        </ToggleGroupItem>
-                    </ToggleGroup>
+                    <div className="flex flex-row gap-2">
+
+                        <ToggleGroup type="single" variant="outline" value={period} onValueChange={handlePeriodChange}>
+                            <ToggleGroupItem value="1W">
+                                1W
+                            </ToggleGroupItem>
+                            <ToggleGroupItem value="1M">
+                                1M
+                            </ToggleGroupItem>
+                            <ToggleGroupItem value="3M">
+                                3M
+                            </ToggleGroupItem>
+                            <ToggleGroupItem value="6M">
+                                6M
+                            </ToggleGroupItem>
+                            <ToggleGroupItem value="1Y">
+                                1Y
+                            </ToggleGroupItem>
+                        </ToggleGroup>
+                        <div className="flex flex-row gap-2">
+                            <ComboboxSelect
+                                options={[{label: "Ninguno", value: 0}, ...groupers.map(g => ({ label: g.name, value: g.id }))] as {label: string, value: number | null}[]}
+                                value={currentGrouperId}
+                                onChange={(value) => {onGrouperChange(value)}}
+                                emptyMessage="No hay agrupadores"
+                                placeholder="Agrupar por"
+                            />
+                        </div>
+                    </div>
                     <ChartContainer config={chartConfig}>
                         <BarChart data={expenses}>
                             <ChartTooltip content={<ChartTooltipContent />} />

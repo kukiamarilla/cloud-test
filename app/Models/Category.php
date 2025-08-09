@@ -13,4 +13,9 @@ class Category extends Model
     {
         return $this->hasMany(Movement::class);
     }
+
+    public function groupers()
+    {
+        return $this->belongsToMany(Grouper::class, 'category_grouper');
+    }
 }

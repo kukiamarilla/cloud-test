@@ -45,8 +45,12 @@ class MovementController extends Controller
         $query->orderBy($sortBy, $sortOrder);
 
         // Paginación
-        $perPage = $request->get('per_page', 15);
-        $movements = $query->with('category')->paginate($perPage);
+        if($request->has('per_page')) {
+            $perPage = $request->get('per_page', 15);
+            $movements = $query->with('category')->paginate($perPage);
+        } else {
+            $movements = $query->with('category')->get();
+        }
 
         return response()->json($movements);
     }

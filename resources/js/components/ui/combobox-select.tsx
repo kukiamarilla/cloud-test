@@ -30,7 +30,7 @@ export const ComboboxSelect = ({ options, value, onChange, emptyMessage, placeho
                     <ChevronsUpDown className="opacity-50" />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-full p-0">
+            <PopoverContent className="w-full p-0 z-1">
                 <Command>
                     <CommandInput placeholder={placeholder} className="h-9" />
                     <CommandList>
