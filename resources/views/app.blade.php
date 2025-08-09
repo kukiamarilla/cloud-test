@@ -9,7 +9,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="default">
-        <link rel="apple-touch-icon" href="{{ asset('favicon.ico') }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/escama-logo.png') }}">
         <link rel="icon" href="{{ asset('img/escama-logo.svg') }}" type="image/svg+xml">
     </head>
     <body>

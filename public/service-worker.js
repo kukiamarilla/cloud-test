@@ -3,7 +3,8 @@ const APP_SHELL = [
   '/',
   '/manifest.webmanifest',
   '/favicon.ico',
-  '/img/escama-logo.svg'
+  '/img/escama-logo.svg',
+  '/img/escama-logo.png'
 ];
 
 self.addEventListener('install', (event) => {
