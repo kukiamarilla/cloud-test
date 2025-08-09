@@ -11,21 +11,19 @@ export const AddCategory = () => {
         createCategory(name);
     }
     return (
-        <div className='flex flex-row gap-4 items-stretch mb-5'>
-            <Dialog>
-                <DialogTrigger asChild>
-                    <Button className="hover:bg-slate-600">Agregar Categoría</Button>
-                </DialogTrigger>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>Agregar Categoría</DialogTitle>
-                    </DialogHeader>
-                    <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
-                        <Input type="text" placeholder="Category Name" onChange={(e) => setName(e.target.value)} />
-                        <Button type="submit">Agregar Categoría</Button>
-                    </form>
-                </DialogContent>
-            </Dialog>
-        </div>
+        <Dialog>
+            <DialogTrigger asChild>
+                <Button className="hover:bg-slate-600">Agregar Categoría</Button>
+            </DialogTrigger>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Agregar Categoría</DialogTitle>
+                </DialogHeader>
+                <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
+                    <Input type="text" placeholder="Category Name" onChange={(e) => setName(e.target.value)} />
+                    <Button type="submit">Agregar Categoría</Button>
+                </form>
+            </DialogContent>
+        </Dialog>
     )
 }

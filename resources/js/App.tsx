@@ -18,9 +18,13 @@ const App = () => {
                     <div className='container mx-auto mt-10 px-4'>
                         <div className='flex flex-col sm:flex-row gap-4 justify-between items-stretch'>
                             <AddMovement />
-                            <div className='flex flex-col sm:flex-row gap-4 items-stretch'>
-                                <AddGrouper />  
-                                <AddCategory />
+                            <div className='flex flex-row gap-4 mb-5 justify-start'>
+                                <div className='flex'>
+                                    <AddGrouper />  
+                                </div>      
+                                <div className='flex'>
+                                    <AddCategory />
+                                </div>
                             </div>
                         </div>
                         <div className='flex flex-col md:flex-row gap-4 items-stretch mb-5'>

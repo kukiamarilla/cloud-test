@@ -23,28 +23,26 @@ export const AddGrouper = () => {
         fetchCategories();
     }, []);
     return (
-        <div className='flex flex-row gap-4 items-stretch mb-5'>
-            <Dialog>
-                <DialogTrigger asChild>
-                    <Button className="hover:bg-slate-600">Agregar Agrupador</Button>
-                </DialogTrigger>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>Agregar Agrupador</DialogTitle>
-                    </DialogHeader>
-                    <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
-                        <Input type="text" placeholder="Nombre del Agrupador" onChange={(e) => setName(e.target.value)} />
-                        <MultiSelect 
-                            options={categories.map((category) => ({ label: category.name, value: category.id }))} 
-                            value={selectedCategoriesIds} 
-                            onChange={(value) => {setSelectedCategoriesIds(value)}} 
-                            emptyMessage="No hay categorías" 
-                            placeholder="Selecciona las categorías" 
-                        />
-                        <Button type="submit">Agregar Agrupador</Button>
-                    </form>
-                </DialogContent>
-            </Dialog>
-        </div>
+        <Dialog>
+            <DialogTrigger asChild>
+                <Button className="hover:bg-slate-600">Agregar Agrupador</Button>
+            </DialogTrigger>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Agregar Agrupador</DialogTitle>
+                </DialogHeader>
+                <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
+                    <Input type="text" placeholder="Nombre del Agrupador" onChange={(e) => setName(e.target.value)} />
+                    <MultiSelect 
+                        options={categories.map((category) => ({ label: category.name, value: category.id }))} 
+                        value={selectedCategoriesIds} 
+                        onChange={(value) => {setSelectedCategoriesIds(value)}} 
+                        emptyMessage="No hay categorías" 
+                        placeholder="Selecciona las categorías" 
+                    />
+                    <Button type="submit">Agregar Agrupador</Button>
+                </form>
+            </DialogContent>
+        </Dialog>
     )
 }
