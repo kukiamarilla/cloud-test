@@ -13,7 +13,7 @@ export const AddGrouper = () => {
     const [selectedCategoriesIds, setSelectedCategoriesIds] = useState<number[]>([]);
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        createGrouper(name, categories.filter(c => selectedCategoriesIds.includes(c.id)));
+        createGrouper({name, categories: categories.filter(c => selectedCategoriesIds.includes(c.id))});
     }
     useEffect(() => {
         const fetchCategories = async () => {

@@ -40,22 +40,21 @@ export const ExpenseChartContainer = () => {
     }
     useEffect(() => {
         if(currentGrouperId && currentGrouperId !== 0) {
-            listMovementsByGrouper(currentGrouperId, dateFrom.toISOString(), dateFrom.toISOString()).then((data) => {
+            listMovementsByGrouper({
+                grouperId: currentGrouperId, 
+                startDate: dateFrom.toISOString()
+            }).then((data) => {
+                setMovements(data);
+            });
+        }else{
+            listMovements({
+                date_from: dateFrom.toISOString(),
+                type: 'expense',
+            }).then((data) => {
                 setMovements(data);
             });
         }
     }, [currentGrouperId, dateFrom]);
-
-    useEffect(() => {
-        listMovements({
-            page: 1,
-            per_page: 1000,
-            date_from: dateFrom.toISOString(),
-            type: 'expense',
-        }).then((data) => {
-            setMovements(data.data);
-        });
-    }, [dateFrom]);
 
     useEffect(() => {
         const dateExpenses: Map<string, number> = new Map();
