@@ -5,6 +5,8 @@ interface RefreshContextValue {
   triggerRefresh: () => void;
   showGrouperManagement: boolean;
   setShowGrouperManagement: (show: boolean) => void;
+  showCategoryManagement: boolean;
+  setShowCategoryManagement: (show: boolean) => void;
 }
 
 const RefreshContext = createContext<RefreshContextValue | undefined>(undefined);
@@ -12,6 +14,7 @@ const RefreshContext = createContext<RefreshContextValue | undefined>(undefined)
 export const RefreshProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [lastRefresh, setLastRefresh] = useState<number>(Date.now());
   const [showGrouperManagement, setShowGrouperManagement] = useState<boolean>(false);
+  const [showCategoryManagement, setShowCategoryManagement] = useState<boolean>(false);
 
   const triggerRefresh = useCallback(() => {
     setLastRefresh(Date.now());
@@ -21,8 +24,10 @@ export const RefreshProvider: React.FC<{ children: React.ReactNode }> = ({ child
     lastRefresh, 
     triggerRefresh, 
     showGrouperManagement, 
-    setShowGrouperManagement 
-  }), [lastRefresh, triggerRefresh, showGrouperManagement, setShowGrouperManagement]);
+    setShowGrouperManagement,
+    showCategoryManagement,
+    setShowCategoryManagement
+  }), [lastRefresh, triggerRefresh, showGrouperManagement, setShowGrouperManagement, showCategoryManagement, setShowCategoryManagement]);
 
   return <RefreshContext.Provider value={value}>{children}</RefreshContext.Provider>;
 };

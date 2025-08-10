@@ -19,7 +19,7 @@ interface SidebarMenuProps {
 }
 
 export const SidebarMenu: React.FC<SidebarMenuProps> = ({ onClose }) => {
-  const { triggerRefresh, setShowGrouperManagement } = useRefresh();
+  const { triggerRefresh, setShowGrouperManagement, setShowCategoryManagement } = useRefresh();
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
 
   const handleRefresh = () => {
@@ -61,7 +61,7 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ onClose }) => {
       title: 'Gestionar Categorías',
       description: 'Crear y editar categorías',
       onClick: () => {
-        setIsCategoryModalOpen(true);
+        setShowCategoryManagement(true);
         onClose();
       }
     },

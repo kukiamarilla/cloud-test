@@ -7,6 +7,7 @@ import { AddMovement } from './components/custom/add-movement';
 import { AddCategory } from './components/custom/add-category';
 import { AddGrouper } from './components/custom/add-grouper';
 import { GrouperManagementView } from './components/custom/grouper-management-view';
+import { CategoryManagementView } from './components/custom/category-management-view';
 import { PullToRefresh } from './components/ui/pull-to-refresh';
 import { RefreshProvider } from './contexts/refresh-context';
 
@@ -25,6 +26,7 @@ const App = () => {
                             </div>
                         </div>
                         <GrouperManagementView />
+                        <CategoryManagementView />
                         <div className='flex flex-col md:flex-row gap-4 items-stretch mb-5'>
                             <div className='w-full md:w-1/2'>
                                 <ExpenseChartContainer />

@@ -7,11 +7,13 @@ import { createCategory } from "@/service/categories";
 interface CategoryManagementModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onSuccess?: () => void;
 }
 
 export const CategoryManagementModal: React.FC<CategoryManagementModalProps> = ({
   isOpen,
-  onClose
+  onClose,
+  onSuccess
 }) => {
     const [name, setName] = useState('');
     
@@ -20,6 +22,7 @@ export const CategoryManagementModal: React.FC<CategoryManagementModalProps> = (
         try {
             await createCategory(name);
             setName('');
+            onSuccess?.();
             onClose();
         } catch (error) {
             console.error('Error creating category:', error);
