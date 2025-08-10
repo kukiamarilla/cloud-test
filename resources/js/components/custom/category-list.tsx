@@ -103,7 +103,7 @@ export const CategoryList: React.FC<CategoryListProps> = ({ onRefresh }) => {
     return (
       <Card>
         <CardContent className="p-6">
-          <div className="text-center">Cargando categorías...</div>
+          <div className="text-center text-muted-foreground">Cargando categorías...</div>
         </CardContent>
       </Card>
     );

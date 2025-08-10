@@ -115,22 +115,22 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ onClose }) => {
               className="w-full justify-start h-auto p-4"
               onClick={item.onClick}
             >
-              <div className="flex items-start space-x-3">
-                <div className="text-gray-600 mt-0.5">
-                  {item.icon}
+                              <div className="flex items-start space-x-3">
+                  <div className="text-muted-foreground mt-0.5">
+                    {item.icon}
+                  </div>
+                  <div className="text-left">
+                    <div className="font-medium">{item.title}</div>
+                    <div className="text-sm text-muted-foreground">{item.description}</div>
+                  </div>
                 </div>
-                <div className="text-left">
-                  <div className="font-medium">{item.title}</div>
-                  <div className="text-sm text-gray-500">{item.description}</div>
-                </div>
-              </div>
             </Button>
           ))}
         </div>
 
         {/* Management Section */}
         <div className="border-t pt-4">
-          <h3 className="text-sm font-medium text-gray-700 mb-3">Gestión</h3>
+          <h3 className="text-sm font-medium text-foreground mb-3">Gestión</h3>
           <div className="space-y-3">
             {managementItems.map((item, index) => (
               <Button
@@ -140,12 +140,12 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ onClose }) => {
                 onClick={item.onClick}
               >
                 <div className="flex items-start space-x-3">
-                  <div className="text-gray-600 mt-0.5">
+                  <div className="text-muted-foreground mt-0.5">
                     {item.icon}
                   </div>
                   <div className="text-left">
                     <div className="font-medium">{item.title}</div>
-                    <div className="text-sm text-gray-500">{item.description}</div>
+                    <div className="text-sm text-muted-foreground">{item.description}</div>
                   </div>
                 </div>
               </Button>
@@ -164,7 +164,7 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ onClose }) => {
                 onClick={item.onClick}
               >
                 <div className="flex items-center space-x-3">
-                  <div className="text-gray-600">
+                  <div className="text-muted-foreground">
                     {item.icon}
                   </div>
                   <span>{item.title}</span>
@@ -177,10 +177,10 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ onClose }) => {
         {/* App Info */}
         <Card className="mt-8">
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-gray-600">Escama</CardTitle>
+            <CardTitle className="text-sm text-muted-foreground">Escama</CardTitle>
           </CardHeader>
           <CardContent className="pt-0">
-            <div className="text-xs text-gray-500 space-y-1">
+            <div className="text-xs text-muted-foreground space-y-1">
               <div>Gestión de finanzas personales</div>
               <div>Versión 0.1.0</div>
             </div>

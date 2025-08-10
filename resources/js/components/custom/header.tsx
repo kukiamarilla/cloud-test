@@ -4,10 +4,13 @@ import { HamburgerIcon } from '../ui/icons/hamburger';
 import { Button } from '../ui/button';
 import { Sidebar } from '../ui/sidebar';
 import { SidebarMenu } from './sidebar-menu';
+import { ThemeToggle } from '../ui/theme-toggle';
+import { useTheme } from '../../contexts/theme-context';
 import { useState } from 'react';
 
 export const Header = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const { theme } = useTheme();
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -19,11 +22,15 @@ export const Header = () => {
 
     return (
         <>
-            <header className='flex flex-row items-center justify-between p-4 bg-white sticky top-0 z-50'>
+            <header className='flex flex-row items-center justify-between p-4 pt-safe bg-background border-b sticky top-0 z-50'>
                 <div className='flex flex-row items-center gap-2' style={{position: 'relative'}}>
-                    <img src={logo} alt="logo" className='w-16 h-16' />
+                    <img 
+                        src={logo} 
+                        alt="logo" 
+                        className={`w-16 h-16 ${theme === 'dark' ? 'invert' : ''}`} 
+                    />
                     <span className='text-2xl font-bold'>escama</span>
-                    <span className='text-sm text-gray-500' style={{position: 'absolute', bottom: '18px', left: 'calc(100% + 10px)'}}>v0.1.0</span>
+                    <span className='text-sm text-muted-foreground' style={{position: 'absolute', bottom: '18px', left: 'calc(100% + 10px)'}}>v0.1.0</span>
                     <span  style={{
                         position: 'absolute', 
                         bottom: '18px', 
@@ -44,9 +51,12 @@ export const Header = () => {
                         content: '""',
                     }}/>
                 </div>
-                <Button variant="ghost" size="icon" className="h-10 w-10" onClick={toggleSidebar}>
-                    <HamburgerIcon className="text-gray-700 size-7" />
-                </Button>
+                <div className="flex items-center gap-2">
+                    <ThemeToggle />
+                    <Button variant="ghost" size="icon" className="h-10 w-10" onClick={toggleSidebar}>
+                        <HamburgerIcon className="text-foreground size-7" />
+                    </Button>
+                </div>
             </header>
 
             <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} title="Menú">

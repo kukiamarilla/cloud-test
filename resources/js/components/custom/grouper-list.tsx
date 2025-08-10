@@ -161,7 +161,7 @@ export const GrouperList: React.FC<GrouperListProps> = ({ onRefresh }) => {
     return (
       <Card>
         <CardContent className="p-6">
-          <div className="text-center">Cargando agrupadores...</div>
+          <div className="text-center text-muted-foreground">Cargando agrupadores...</div>
         </CardContent>
       </Card>
     );

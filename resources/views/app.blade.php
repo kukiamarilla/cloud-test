@@ -5,11 +5,13 @@
         @vite(['resources/css/app.css', 'resources/js/main.tsx'])
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
         <link rel="manifest" href="{{ asset('manifest.webmanifest') }}">
-        <meta name="theme-color" content="#ffffff">
+        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+        <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
         <meta name="apple-mobile-web-app-title" content="Escama">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" media="(prefers-color-scheme: dark)">
         <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/escama-logo.png') }}">
         <link rel="icon" href="{{ asset('img/escama-logo.svg') }}" type="image/svg+xml">
 

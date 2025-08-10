@@ -129,4 +129,54 @@
   body {
     @apply bg-background text-foreground;
     }
+  
+  /* iOS Safe Area Support */
+  html {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  /* Safe area utility classes */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .pl-safe {
+    padding-left: env(safe-area-inset-left);
+  }
+  
+  .pr-safe {
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  /* Ensure the app container respects safe areas */
+  #app {
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height for mobile browsers */
+  }
+  
+  /* Dark mode specific safe area handling */
+  @media (prefers-color-scheme: dark) {
+    html {
+      background-color: oklch(0.145 0 0);
+    }
+    body {
+      background-color: oklch(0.145 0 0);
+    }
+  }
+  
+  /* Dark mode class specific safe area handling */
+  .dark html {
+    background-color: oklch(0.145 0 0);
+  }
+  
+  .dark body {
+    background-color: oklch(0.145 0 0);
+  }
 }

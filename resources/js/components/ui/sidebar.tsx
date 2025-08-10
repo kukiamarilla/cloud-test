@@ -27,12 +27,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
       
       {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-80 bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 h-full w-80 bg-background border-l shadow-xl z-50 transform transition-transform duration-300 ease-in-out pt-safe ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b">
+        <div className="flex items-center justify-between p-4 border-b bg-background">
           <h2 className="text-lg font-semibold">{title}</h2>
           <Button
             variant="ghost"
@@ -45,7 +45,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
         
         {/* Content */}
-        <div className="p-4 overflow-y-auto h-[calc(100%-4rem)]">
+        <div className="p-4 pb-safe overflow-y-auto h-[calc(100%-4rem)]">
           {children}
         </div>
       </div>
