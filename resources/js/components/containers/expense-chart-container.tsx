@@ -13,13 +13,14 @@ interface DateExpense {
 }
 
 export const ExpenseChartContainer = () => {
-    const monthAgo = new Date();
-    monthAgo.setDate(monthAgo.getDate() - 30);
+    const startOfMonth = new Date();
+    startOfMonth.setDate(1);
+    startOfMonth.setHours(0, 0, 0, 0);
 
     const [groupers, setGroupers] = useState<Grouper[]>([]);
     const [movements, setMovements] = useState<Movement[]>([]);
     const [expenses, setExpenses] = useState<DateExpense[]>([]);
-    const [dateFrom, setDateFrom] = useState<Date>(monthAgo);
+    const [dateFrom, setDateFrom] = useState<Date>(startOfMonth);
     const [currentGrouperId, setCurrentGrouperId] = useState<number>(0);
     const { lastRefresh } = useRefresh();
 
@@ -30,6 +31,7 @@ export const ExpenseChartContainer = () => {
     const handlePeriodChange = (period: string) => {
         const daysLessMap = {
             "1W": 7,
+            "EM": new Date().getDate() - 1,
             "1M": 30,
             "3M": 90,
             "6M": 180,

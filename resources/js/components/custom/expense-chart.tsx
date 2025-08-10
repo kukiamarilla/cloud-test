@@ -24,7 +24,7 @@ interface ExpenseChartProps {
 }
 
 export const ExpenseChart = ({ expenses, onPeriodChange, groupers, onGrouperChange, currentGrouperId }: ExpenseChartProps) => {
-    const [period, setPeriod] = useState("1M");
+    const [period, setPeriod] = useState("EM");
 
     const handlePeriodChange = (value: string) => {
         setPeriod(value);
@@ -48,6 +48,9 @@ export const ExpenseChart = ({ expenses, onPeriodChange, groupers, onGrouperChan
                         <ToggleGroup type="single" variant="outline" value={period} onValueChange={handlePeriodChange}>
                             <ToggleGroupItem value="1W">
                                 1W
+                            </ToggleGroupItem>
+                            <ToggleGroupItem value="EM">
+                                EM
                             </ToggleGroupItem>
                             <ToggleGroupItem value="1M">
                                 1M
