@@ -11,6 +11,7 @@ import { listCategories } from "@/service/categories";
 import { Grouper } from "@/model/grouper";
 import { Category } from "@/model/category";
 import { Edit, Trash2, Plus } from "lucide-react";
+import { useNotification } from "../../contexts/notification-context";
 
 interface GrouperListProps {
   onRefresh?: () => void;
@@ -24,6 +25,8 @@ export const GrouperList: React.FC<GrouperListProps> = ({ onRefresh }) => {
   const [editingGrouper, setEditingGrouper] = useState<Grouper | null>(null);
   const [editName, setEditName] = useState('');
   const [editSelectedCategoriesIds, setEditSelectedCategoriesIds] = useState<number[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const { addNotification } = useNotification();
 
   const fetchGroupers = async () => {
     try {
@@ -31,7 +34,11 @@ export const GrouperList: React.FC<GrouperListProps> = ({ onRefresh }) => {
       const data = await listGrouper();
       setGroupers(data);
     } catch (error) {
-      console.error('Error fetching groupers:', error);
+      addNotification({
+        type: 'error',
+        title: 'Error',
+        message: 'No se pudieron cargar los agrupadores'
+      });
     } finally {
       setLoading(false);
     }
@@ -42,7 +49,11 @@ export const GrouperList: React.FC<GrouperListProps> = ({ onRefresh }) => {
       const data = await listCategories();
       setCategories(data);
     } catch (error) {
-      console.error('Error fetching categories:', error);
+      addNotification({
+        type: 'error',
+        title: 'Error',
+        message: 'No se pudieron cargar las categorías'
+      });
     }
   };
 
@@ -62,13 +73,39 @@ export const GrouperList: React.FC<GrouperListProps> = ({ onRefresh }) => {
     e.preventDefault();
     if (!editingGrouper) return;
 
+    if (!editName.trim()) {
+      addNotification({
+        type: 'error',
+        title: 'Error',
+        message: 'Debes ingresar un nombre para el agrupador'
+      });
+      return;
+    }
+
+    if (editSelectedCategoriesIds.length === 0) {
+      addNotification({
+        type: 'error',
+        title: 'Error',
+        message: 'Debes seleccionar al menos una categoría'
+      });
+      return;
+    }
+
+    setIsLoading(true);
+
     try {
       await updateGrouper({
         id: editingGrouper.id,
-        name: editName,
+        name: editName.trim(),
         categories: categories.filter(c => editSelectedCategoriesIds.includes(c.id))
       });
       
+      addNotification({
+        type: 'success',
+        title: 'Éxito',
+        message: 'Agrupador actualizado correctamente'
+      });
+
       setEditModalOpen(false);
       setEditingGrouper(null);
       setEditName('');
@@ -78,7 +115,13 @@ export const GrouperList: React.FC<GrouperListProps> = ({ onRefresh }) => {
       await fetchGroupers();
       onRefresh?.();
     } catch (error) {
-      console.error('Error updating grouper:', error);
+      addNotification({
+        type: 'error',
+        title: 'Error',
+        message: 'No se pudo actualizar el agrupador'
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -89,10 +132,21 @@ export const GrouperList: React.FC<GrouperListProps> = ({ onRefresh }) => {
 
     try {
       await deleteGrouper(id);
+      
+      addNotification({
+        type: 'success',
+        title: 'Éxito',
+        message: 'Agrupador eliminado correctamente'
+      });
+
       await fetchGroupers();
       onRefresh?.();
     } catch (error) {
-      console.error('Error deleting grouper:', error);
+      addNotification({
+        type: 'error',
+        title: 'Error',
+        message: 'No se pudo eliminar el agrupador'
+      });
     }
   };
 
@@ -206,10 +260,20 @@ export const GrouperList: React.FC<GrouperListProps> = ({ onRefresh }) => {
               />
             </div>
             <div className="flex gap-2 justify-end">
-              <Button type="button" variant="outline" onClick={handleCloseEditModal}>
+              <Button 
+                type="button" 
+                variant="outline" 
+                onClick={handleCloseEditModal}
+                disabled={isLoading}
+              >
                 Cancelar
               </Button>
-              <Button type="submit">Actualizar Agrupador</Button>
+              <Button 
+                type="submit"
+                disabled={isLoading}
+              >
+                {isLoading ? 'Actualizando...' : 'Actualizar Agrupador'}
+              </Button>
             </div>
           </form>
         </DialogContent>

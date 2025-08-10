@@ -7,6 +7,7 @@ import { Input } from "../ui/input";
 import { listCategories, updateCategory } from "@/service/categories";
 import { Category } from "@/model/category";
 import { Edit, Tag } from "lucide-react";
+import { useNotification } from "../../contexts/notification-context";
 
 interface CategoryListProps {
   onRefresh?: () => void;
@@ -18,6 +19,8 @@ export const CategoryList: React.FC<CategoryListProps> = ({ onRefresh }) => {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [editName, setEditName] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const { addNotification } = useNotification();
 
   const fetchCategories = async () => {
     try {
@@ -25,7 +28,11 @@ export const CategoryList: React.FC<CategoryListProps> = ({ onRefresh }) => {
       const data = await listCategories();
       setCategories(data);
     } catch (error) {
-      console.error('Error fetching categories:', error);
+      addNotification({
+        type: 'error',
+        title: 'Error',
+        message: 'No se pudieron cargar las categorías'
+      });
     } finally {
       setLoading(false);
     }
@@ -45,12 +52,29 @@ export const CategoryList: React.FC<CategoryListProps> = ({ onRefresh }) => {
     e.preventDefault();
     if (!editingCategory) return;
 
+    if (!editName.trim()) {
+      addNotification({
+        type: 'error',
+        title: 'Error',
+        message: 'Debes ingresar un nombre para la categoría'
+      });
+      return;
+    }
+
+    setIsLoading(true);
+
     try {
       await updateCategory({
         id: editingCategory.id,
-        name: editName
+        name: editName.trim()
       });
       
+      addNotification({
+        type: 'success',
+        title: 'Éxito',
+        message: 'Categoría actualizada correctamente'
+      });
+
       setEditModalOpen(false);
       setEditingCategory(null);
       setEditName('');
@@ -59,7 +83,13 @@ export const CategoryList: React.FC<CategoryListProps> = ({ onRefresh }) => {
       await fetchCategories();
       onRefresh?.();
     } catch (error) {
-      console.error('Error updating category:', error);
+      addNotification({
+        type: 'error',
+        title: 'Error',
+        message: 'No se pudo actualizar la categoría'
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -140,10 +170,20 @@ export const CategoryList: React.FC<CategoryListProps> = ({ onRefresh }) => {
               />
             </div>
             <div className="flex gap-2 justify-end">
-              <Button type="button" variant="outline" onClick={handleCloseEditModal}>
+              <Button 
+                type="button" 
+                variant="outline" 
+                onClick={handleCloseEditModal}
+                disabled={isLoading}
+              >
                 Cancelar
               </Button>
-              <Button type="submit">Actualizar Categoría</Button>
+              <Button 
+                type="submit"
+                disabled={isLoading}
+              >
+                {isLoading ? 'Actualizando...' : 'Actualizar Categoría'}
+              </Button>
             </div>
           </form>
         </DialogContent>

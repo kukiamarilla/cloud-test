@@ -12,7 +12,8 @@ import {
   FolderOpen
 } from 'lucide-react';
 import { useRefresh } from '../../contexts/refresh-context';
-import { CategoryManagementModal } from './category-management-modal';
+import { AddCategory } from './add-category';
+import { AddGrouper } from './add-grouper';
 
 interface SidebarMenuProps {
   onClose: () => void;
@@ -20,7 +21,6 @@ interface SidebarMenuProps {
 
 export const SidebarMenu: React.FC<SidebarMenuProps> = ({ onClose }) => {
   const { triggerRefresh, setShowGrouperManagement, setShowCategoryManagement } = useRefresh();
-  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
 
   const handleRefresh = () => {
     triggerRefresh();
@@ -189,10 +189,10 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ onClose }) => {
       </div>
 
       {/* Modals */}
-      <CategoryManagementModal 
-        isOpen={isCategoryModalOpen} 
-        onClose={() => setIsCategoryModalOpen(false)} 
-      />
+      <div className="hidden">
+        <AddCategory />
+        <AddGrouper />
+      </div>
     </>
   );
 }; 

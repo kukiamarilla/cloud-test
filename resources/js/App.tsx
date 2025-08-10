@@ -10,38 +10,43 @@ import { GrouperManagementView } from './components/custom/grouper-management-vi
 import { CategoryManagementView } from './components/custom/category-management-view';
 import { PullToRefresh } from './components/ui/pull-to-refresh';
 import { RefreshProvider } from './contexts/refresh-context';
+import { NotificationProvider } from './contexts/notification-context';
+import { Notifications } from './components/ui/notifications';
 
 const App = () => {
     return (
-        <RefreshProvider>
-            <div>
-                <Header />
-                <PullToRefresh>
-                    <div className='container mx-auto mt-10 px-4'>
-                        <div className='flex flex-col sm:flex-row gap-4 justify-between items-stretch '>
-                            <AddMovement />
-                            <div className='flex flex-col sm:flex-row gap-4 items-stretch mb-5'>
-                                <AddGrouper />  
-                                <AddCategory />
+        <NotificationProvider>
+            <RefreshProvider>
+                <div>
+                    <Header />
+                    <Notifications />
+                    <PullToRefresh>
+                        <div className='container mx-auto mt-10 px-4'>
+                            <div className='flex flex-col sm:flex-row gap-4 justify-between items-stretch '>
+                                <AddMovement />
+                                <div className='flex flex-col sm:flex-row gap-4 items-stretch mb-5'>
+                                    <AddGrouper />  
+                                    <AddCategory />
+                                </div>
+                            </div>
+                            <GrouperManagementView />
+                            <CategoryManagementView />
+                            <div className='flex flex-col md:flex-row gap-4 items-stretch mb-5'>
+                                <div className='w-full md:w-1/2'>
+                                    <ExpenseChartContainer />
+                                </div>
+                                <div className='w-full md:w-1/2'>
+                                    <BalancePerMonthContainer />
+                                </div>
+                            </div>
+                            <div className='overflow-x-auto' data-section="movements">
+                                <MovementsContainer />
                             </div>
                         </div>
-                        <GrouperManagementView />
-                        <CategoryManagementView />
-                        <div className='flex flex-col md:flex-row gap-4 items-stretch mb-5'>
-                            <div className='w-full md:w-1/2'>
-                                <ExpenseChartContainer />
-                            </div>
-                            <div className='w-full md:w-1/2'>
-                                <BalancePerMonthContainer />
-                            </div>
-                        </div>
-                        <div className='overflow-x-auto' data-section="movements">
-                            <MovementsContainer />
-                        </div>
-                    </div>
-                </PullToRefresh>
-            </div>
-        </RefreshProvider>
+                    </PullToRefresh>
+                </div>
+            </RefreshProvider>
+        </NotificationProvider>
     );
 };
 
