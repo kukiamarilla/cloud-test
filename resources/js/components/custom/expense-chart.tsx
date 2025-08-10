@@ -91,7 +91,7 @@ export const ExpenseChart = ({ expenses, onPeriodChange, groupers, onGrouperChan
                         </div>
                     </div>
                     <div>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-gray-500 mt-3">
                             Suma de gastos: {sum.toLocaleString()} Gs.
                         </p>
                         <p className="text-sm text-gray-500">
