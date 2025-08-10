@@ -45,7 +45,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
         
         {/* Content */}
-        <div className="p-4 overflow-y-auto h-full">
+        <div className="p-4 overflow-y-auto h-[calc(100%-4rem)]">
           {children}
         </div>
       </div>
