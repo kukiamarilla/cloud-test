@@ -72,6 +72,18 @@ export const ExpenseChart = ({ expenses, onPeriodChange, groupers, onGrouperChan
                             />
                         </div>
                     </div>
+                    <div>
+                        <p className="text-sm text-gray-500">
+                            Suma de gastos: {expenses.reduce((acc, curr) => acc + curr.amount, 0).toLocaleString()} Gs.
+                        </p>
+                        <p className="text-sm text-gray-500">
+                            Promedio de gastos: {
+                                expenses.length > 0
+                                    ? Math.round(expenses.reduce((acc, curr) => acc + curr.amount, 0) / expenses.length).toLocaleString()
+                                    : "0"
+                            } Gs.
+                        </p>
+                    </div>
                     <ChartContainer config={chartConfig}>
                         <BarChart data={expenses}>
                             <ChartTooltip content={<ChartTooltipContent />} />
