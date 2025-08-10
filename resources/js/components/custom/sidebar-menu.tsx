@@ -13,16 +13,14 @@ import {
 } from 'lucide-react';
 import { useRefresh } from '../../contexts/refresh-context';
 import { CategoryManagementModal } from './category-management-modal';
-import { GrouperManagementModal } from './grouper-management-modal';
 
 interface SidebarMenuProps {
   onClose: () => void;
 }
 
 export const SidebarMenu: React.FC<SidebarMenuProps> = ({ onClose }) => {
-  const { triggerRefresh } = useRefresh();
+  const { triggerRefresh, setShowGrouperManagement } = useRefresh();
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
-  const [isGrouperModalOpen, setIsGrouperModalOpen] = useState(false);
 
   const handleRefresh = () => {
     triggerRefresh();
@@ -72,7 +70,7 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ onClose }) => {
       title: 'Gestionar Agrupadores',
       description: 'Crear y editar agrupadores',
       onClick: () => {
-        setIsGrouperModalOpen(true);
+        setShowGrouperManagement(true);
         onClose();
       }
     }
@@ -194,10 +192,6 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ onClose }) => {
       <CategoryManagementModal 
         isOpen={isCategoryModalOpen} 
         onClose={() => setIsCategoryModalOpen(false)} 
-      />
-      <GrouperManagementModal 
-        isOpen={isGrouperModalOpen} 
-        onClose={() => setIsGrouperModalOpen(false)} 
       />
     </>
   );

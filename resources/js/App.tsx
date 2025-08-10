@@ -6,6 +6,7 @@ import { Header } from './components/custom/header';
 import { AddMovement } from './components/custom/add-movement';
 import { AddCategory } from './components/custom/add-category';
 import { AddGrouper } from './components/custom/add-grouper';
+import { GrouperManagementView } from './components/custom/grouper-management-view';
 import { PullToRefresh } from './components/ui/pull-to-refresh';
 import { RefreshProvider } from './contexts/refresh-context';
 
@@ -16,13 +17,14 @@ const App = () => {
                 <Header />
                 <PullToRefresh>
                     <div className='container mx-auto mt-10 px-4'>
-                        <div className='flex flex-col sm:flex-row gap-4 justify-between items-stretch'>
+                        <div className='flex flex-col sm:flex-row gap-4 justify-between items-stretch '>
                             <AddMovement />
-                            <div className='flex flex-col sm:flex-row gap-4 items-stretch'>
+                            <div className='flex flex-col sm:flex-row gap-4 items-stretch mb-5'>
                                 <AddGrouper />  
                                 <AddCategory />
                             </div>
                         </div>
+                        <GrouperManagementView />
                         <div className='flex flex-col md:flex-row gap-4 items-stretch mb-5'>
                             <div className='w-full md:w-1/2'>
                                 <ExpenseChartContainer />

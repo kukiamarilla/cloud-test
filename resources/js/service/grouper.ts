@@ -16,6 +16,24 @@ export const createGrouper = async (options: {name: string, categories: Category
     return response.data;
 };
 
+export const updateGrouper = async (options: {id: number, name: string, categories: Category[]}) => {
+    const response = await axios.put(`/api/groupers/${options.id}`, { 
+        name: options.name, 
+        categories: options.categories.map(c => c.id) 
+    });
+    return response.data;
+};
+
+export const deleteGrouper = async (id: number) => {
+    const response = await axios.delete(`/api/groupers/${id}`);
+    return response.data;
+};
+
+export const getGrouper = async (id: number): Promise<Grouper> => {
+    const response = await axios.get(`/api/groupers/${id}`);
+    return response.data;
+};
+
 export const listMovementsByGrouper = async (options: {grouperId: number, startDate?: string, endDate?: string}): Promise<Movement[]> => {
     const response = await axios.get(`/api/groupers/${options.grouperId}/movements`, {
         params: {

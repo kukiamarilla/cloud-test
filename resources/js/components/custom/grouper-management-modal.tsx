@@ -10,11 +10,13 @@ import { createGrouper } from "@/service/grouper";
 interface GrouperManagementModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onSuccess?: () => void;
 }
 
 export const GrouperManagementModal: React.FC<GrouperManagementModalProps> = ({
   isOpen,
-  onClose
+  onClose,
+  onSuccess
 }) => {
     const [name, setName] = useState('');
     const [categories, setCategories] = useState<Category[]>([]);
@@ -29,6 +31,7 @@ export const GrouperManagementModal: React.FC<GrouperManagementModalProps> = ({
             });
             setName('');
             setSelectedCategoriesIds([]);
+            onSuccess?.();
             onClose();
         } catch (error) {
             console.error('Error creating grouper:', error);
