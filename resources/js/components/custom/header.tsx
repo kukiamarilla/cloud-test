@@ -19,7 +19,7 @@ export const Header = () => {
 
     return (
         <>
-            <header className='flex flex-row items-center justify-between p-4'>
+            <header className='flex flex-row items-center justify-between p-4 bg-white sticky top-0 z-50'>
                 <div className='flex flex-row items-center gap-2' style={{position: 'relative'}}>
                     <img src={logo} alt="logo" className='w-16 h-16' />
                     <span className='text-2xl font-bold'>escama</span>
