@@ -70,9 +70,9 @@ export const BalancePerMonth = ({movements, onYearChange, year}: {movements: Mov
                     axisLine={false}
                     tickFormatter={(value) => value.slice(0, 10)}
                 />
-                <Bar dataKey="amount" fill="#e4696c" radius={4}>
+                <Bar dataKey="amount" fill="#e7210b" radius={4}>
                     {chartData.map((item) => (
-                        <Cell key={item.month} fill={item.amount > 0 ? "#5cc460" : "#e4696c"} />
+                        <Cell key={item.month} fill={item.amount > 0 ? "#00a63d" : "#e7210b"} />
                     ))}
                 </Bar>
             </BarChart>

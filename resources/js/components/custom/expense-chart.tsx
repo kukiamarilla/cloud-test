@@ -115,7 +115,7 @@ export const ExpenseChart = ({ expenses, onPeriodChange, groupers, onGrouperChan
                                 axisLine={false}
                                 tickFormatter={(value) => value.slice(0, 10)}
                             />
-                            <Bar dataKey="amount" fill="#e4696c" radius={4}/>
+                            <Bar dataKey="amount" fill="#e7210b" radius={4}/>
                         </BarChart>
                     </ChartContainer>
                 </CardContent>
