@@ -25,7 +25,22 @@ interface ExpenseChartProps {
 
 export const ExpenseChart = ({ expenses, onPeriodChange, groupers, onGrouperChange, currentGrouperId }: ExpenseChartProps) => {
     const [period, setPeriod] = useState("EM");
+    const [sum, setSum] = useState(0);
+    const [average, setAverage] = useState(0);
+    const [monthlyProjection, setMonthlyProjection] = useState(0);
 
+    useEffect(() => {
+        setSum(expenses.reduce((acc, curr) => acc + curr.amount, 0));
+        setAverage(expenses.length > 0 ? Math.round(expenses.reduce((acc, curr) => acc + curr.amount, 0) / expenses.length) : 0);
+    }, [expenses]);
+
+    useEffect(() => {
+        const today = new Date();
+        today.setMonth(today.getMonth() + 1);
+        today.setDate(0);
+        const daysInThisMonth = today.getDate();
+        setMonthlyProjection(average * daysInThisMonth);
+    }, [average])
     const handlePeriodChange = (value: string) => {
         setPeriod(value);
         onPeriodChange(value);
@@ -77,15 +92,18 @@ export const ExpenseChart = ({ expenses, onPeriodChange, groupers, onGrouperChan
                     </div>
                     <div>
                         <p className="text-sm text-gray-500">
-                            Suma de gastos: {expenses.reduce((acc, curr) => acc + curr.amount, 0).toLocaleString()} Gs.
+                            Suma de gastos: {sum.toLocaleString()} Gs.
                         </p>
                         <p className="text-sm text-gray-500">
                             Promedio de gastos: {
-                                expenses.length > 0
-                                    ? Math.round(expenses.reduce((acc, curr) => acc + curr.amount, 0) / expenses.length).toLocaleString()
-                                    : "0"
+                                average.toLocaleString()
                             } Gs.
                         </p>
+                        {period === "EM" && (
+                            <p className="text-sm text-gray-500">
+                                Proyección de gastos: {monthlyProjection.toLocaleString()} Gs.
+                            </p>
+                        )}
                     </div>
                     <ChartContainer config={chartConfig}>
                         <BarChart data={expenses}>
