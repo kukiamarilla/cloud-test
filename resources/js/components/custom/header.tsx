@@ -1,9 +1,25 @@
 // @ts-ignore
 import logo from '../../../img/escama-logo.svg';
+import { HamburgerIcon } from '../ui/icons/hamburger';
+import { Button } from '../ui/button';
+import { Sidebar } from '../ui/sidebar';
+import { SidebarMenu } from './sidebar-menu';
+import { useState } from 'react';
 
 export const Header = () => {
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    const closeSidebar = () => {
+        setIsSidebarOpen(false);
+    };
+
     return (
-        <header className='flex flex-row items-center justify-between p-4'>
+        <>
+            <header className='flex flex-row items-center justify-between p-4'>
                 <div className='flex flex-row items-center gap-2' style={{position: 'relative'}}>
                     <img src={logo} alt="logo" className='w-16 h-16' />
                     <span className='text-2xl font-bold'>escama</span>
@@ -28,6 +44,14 @@ export const Header = () => {
                         content: '""',
                     }}/>
                 </div>
+                <Button variant="ghost" size="icon" className="h-10 w-10" onClick={toggleSidebar}>
+                    <HamburgerIcon className="text-gray-700 size-7" />
+                </Button>
             </header>
+
+            <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} title="Menú">
+                <SidebarMenu onClose={closeSidebar} />
+            </Sidebar>
+        </>
     )
 }
