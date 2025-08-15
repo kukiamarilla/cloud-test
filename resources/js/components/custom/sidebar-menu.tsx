@@ -9,9 +9,12 @@ import {
   Info,
   RefreshCw,
   Tag,
-  FolderOpen
+  FolderOpen,
+  LogOut
 } from 'lucide-react';
-import { useRefresh } from '../../contexts/refresh-context';
+import { useRefresh } from '@/contexts/refresh-context';
+import { useAuth } from '@/contexts/auth-context';
+import { useNavigate } from 'react-router-dom';
 import { AddCategory } from './add-category';
 import { AddGrouper } from './add-grouper';
 
@@ -21,6 +24,8 @@ interface SidebarMenuProps {
 
 export const SidebarMenu: React.FC<SidebarMenuProps> = ({ onClose }) => {
   const { triggerRefresh, setShowGrouperManagement, setShowCategoryManagement } = useRefresh();
+  const { logout } = useAuth();
+  const navigate = useNavigate();
 
   const handleRefresh = () => {
     triggerRefresh();
@@ -172,6 +177,31 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ onClose }) => {
               </Button>
             ))}
           </div>
+        </div>
+
+        {/* Logout Section */}
+        <div className="border-t pt-4">
+          <Button
+            variant="ghost"
+            className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10"
+            onClick={async () => {
+              try {
+                await logout(() => {
+                  navigate('/login');
+                  onClose();
+                });
+              } catch (error) {
+                console.error('Error during logout:', error);
+              }
+            }}
+          >
+            <div className="flex items-center space-x-3">
+              <div className="text-destructive">
+                <LogOut className="h-5 w-5" />
+              </div>
+              <span>Cerrar sesión</span>
+            </div>
+          </Button>
         </div>
 
         {/* App Info */}

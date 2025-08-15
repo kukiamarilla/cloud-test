@@ -22,7 +22,7 @@ export const Header = () => {
 
     return (
         <>
-            <header className='flex flex-row items-center justify-between p-4 pt-safe bg-background border-b sticky top-0 z-50'>
+            <header className='flex flex-row items-center justify-between p-4 pt-safe bg-background border-b sticky top-0 z-1'>
                 <div className='flex flex-row items-center gap-2' style={{position: 'relative'}}>
                     <img 
                         src={logo} 

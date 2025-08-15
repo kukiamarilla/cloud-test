@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { http } from './http';
 
 export const listMovements = async (options: { 
     page?: number, 
@@ -10,7 +10,7 @@ export const listMovements = async (options: {
     sort_by?: string,
     sort_order?: string,
 }) => {
-    const response = await axios.get('/api/movements', { params: options });
+    const response = await http.get('/movements', { params: options });
     return response.data;
 };
 
@@ -19,7 +19,7 @@ export const getMovementStatistics = async (options: {
     date_to?: string,
     category_id?: number,
 }) => {
-    const response = await axios.get('/api/movements/statistics', { params: options });
+    const response = await http.get('/movements/statistics', { params: options });
     return response.data;
 };
 
@@ -30,11 +30,11 @@ export const createMovement = async (options: {
     date: string,
     category_id: number,
 }) => {
-    const response = await axios.post('/api/movements', options);
+    const response = await http.post('/movements', options);
     return response.data;
 };
 
 export const deleteMovement = async (id: number) => {
-    const response = await axios.delete(`/api/movements/${id}`);
+    const response = await http.delete(`/movements/${id}`);
     return response.data;
 };
