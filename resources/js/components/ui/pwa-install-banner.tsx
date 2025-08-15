@@ -30,16 +30,17 @@ function isStandaloneMode(): boolean {
 }
 
 function shouldShowAgain(): boolean {
-  try {
-    const ts = localStorage.getItem(DISMISS_KEY);
-    if (!ts) return true;
-    const dismissedAt = parseInt(ts, 10);
-    if (Number.isNaN(dismissedAt)) return true;
-    const diffDays = (Date.now() - dismissedAt) / (1000 * 60 * 60 * 24);
-    return diffDays >= DISMISS_COOLDOWN_DAYS;
-  } catch {
-    return true;
-  }
+  // try {
+  //   const ts = localStorage.getItem(DISMISS_KEY);
+  //   if (!ts) return true;
+  //   const dismissedAt = parseInt(ts, 10);
+  //   if (Number.isNaN(dismissedAt)) return true;
+  //   const diffDays = (Date.now() - dismissedAt) / (1000 * 60 * 60 * 24);
+  //   return diffDays >= DISMISS_COOLDOWN_DAYS;
+  // } catch {
+  //   return true;
+  // }
+  return true;
 }
 
 export const PwaInstallBanner: React.FC = () => {
