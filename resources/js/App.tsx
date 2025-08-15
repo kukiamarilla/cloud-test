@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Register from './components/pages/register';
 import { useAuth } from '@/contexts/auth-context';
 import { Notifications } from './components/ui/notifications';
+import { PwaInstallBanner } from './components/ui/pwa-install-banner';
 
 const AppContent = () => {
     const { auth, loading } = useAuth();
@@ -27,6 +28,7 @@ const AppContent = () => {
     return (
         <NotificationProvider>
             <Notifications />
+            <PwaInstallBanner />
             <BrowserRouter basename="/app">
                 <Routes>
                     <Route path="/" element={<Navigate to={auth ? "/dashboard" : "/login"} />} />
