@@ -9,6 +9,8 @@ import Register from './components/pages/register';
 import { useAuth } from '@/contexts/auth-context';
 import { Notifications } from './components/ui/notifications';
 import { PwaInstallBanner } from './components/ui/pwa-install-banner';
+import ForgotPassword from './components/pages/forgot-password';
+import ResetPassword from './components/pages/reset-password';
 
 const AppContent = () => {
     const { auth, loading } = useAuth();
@@ -35,6 +37,8 @@ const AppContent = () => {
                     {/* Public routes */}
                     <Route path="/login" element={!auth ? <Login /> : <Navigate to="/dashboard" />} />
                     <Route path="/register" element={!auth ? <Register /> : <Navigate to="/dashboard" />} />
+                    <Route path="/forgot-password" element={!auth ? <ForgotPassword /> : <Navigate to="/dashboard" />} />
+                    <Route path="/reset-password" element={!auth ? <ResetPassword /> : <Navigate to="/dashboard" />} />
                     {/* Private routes */}
                     <Route path="/dashboard" element={auth ? <Dashboard /> : <Navigate to="/login" />} />
                 </Routes>

@@ -51,4 +51,35 @@ class AuthController extends Controller
         ]);
         return response()->json(['message' => 'Usuario registrado correctamente'], 200);
     }
+
+    public function forgotPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+        ]);
+
+        // In a real app we'd email a token link. For now we return a message.
+        // You can integrate Laravel Notifications/Mail later.
+        return response()->json([
+            'message' => 'Si el correo existe, recibirás instrucciones para recuperar tu contraseña.'
+        ], 200);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            return response()->json(['message' => 'Usuario no encontrado'], 404);
+        }
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return response()->json(['message' => 'Contraseña restablecida correctamente'], 200);
+    }
 }
